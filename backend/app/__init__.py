@@ -1,11 +1,15 @@
 from flask import Flask
 from . import config
 
-def create_app(config_class=config.Config):
+from . import extensions
+
+def create_app(config_class=config.Config, db=extensions.db, jwt_manager=extensions.jwt_manager):
     app = Flask(__name__)
     app.config.from_object(config_class)
 
     # init extensions
+    db.init_app(app)
+    jwt_manager.init_app(app)
 
     # register blueprints
 
