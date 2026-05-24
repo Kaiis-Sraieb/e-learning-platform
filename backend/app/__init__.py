@@ -15,7 +15,11 @@ def create_app(config_class=config.Config, db=extensions.db, jwt_manager=extensi
     jwt_manager.init_app(app)
 
     # register blueprints
+    from app.routes.course_routes import course_bp
 
+    app.register_blueprint(course_bp, url_prefix="/api")
+
+    # test api works or not
     @app.route("/api/test")
     def api_test():
         return {
