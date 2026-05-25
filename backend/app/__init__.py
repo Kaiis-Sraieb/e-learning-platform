@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from . import config
 
 from . import extensions
@@ -13,6 +14,7 @@ def create_app(config_class=config.Config, db=extensions.db, jwt_manager=extensi
     # init extensions
     db.init_app(app)
     jwt_manager.init_app(app)
+    CORS(app)
 
     # register blueprints
     from app.routes.course_routes import course_bp
